@@ -1,5 +1,11 @@
 # node-github-projects
 
+[![CircleCI](https://circleci.com/gh/hiradimir/node-github-projects/tree/master.svg?style=svg)](https://circleci.com/gh/hiradimir/node-github-projects/tree/master)
+[![codecov](https://codecov.io/gh/hiradimir/node-github-projects/branch/master/graph/badge.svg)](https://codecov.io/gh/hiradimir/node-github-projects)
+[![dependencies](https://david-dm.org/hiradimir/node-github-projects.svg)](https://david-dm.org/hiradimir/node-github-projects)
+[![devDependencies](https://david-dm.org/hiradimir/node-github-projects/dev-status.svg)](https://david-dm.org/hiradimir/node-github-projects#info=devDependencies)
+
+
 This is provide to operating github projects simply.
 
 
