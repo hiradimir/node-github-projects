@@ -1,7 +1,9 @@
 {
   "name": "node-github-projects",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "private": false,
+  "license" : "MIT",
+  "repository": "https://github.com/hiradimir/node-github-projects",
   "main": "dist/js/main/index.js",
   "typings": "dist/js/main/index.d.ts",
   "scripts": {
