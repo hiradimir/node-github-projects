@@ -1,7 +1,7 @@
 {
   "name": "node-github-projects",
-  "version": "0.0.0",
-  "private": true,
+  "version": "0.0.2",
+  "private": false,
   "main": "dist/js/main/index.js",
   "typings": "dist/js/main/index.d.ts",
   "scripts": {
@@ -9,7 +9,9 @@
     "start": "node ./bin/www",
     "tsc": "tsc",
     "test": "NODE_ENV=test; mocha --opts src/spec/mocha.opts",
+    "test-debug": "NODE_ENV=test; mocha --inspect --debug-brk --opts src/spec/mocha.opts",
     "ncu": "ncu",
+    "prepublish": "npm run build && npm test",
     "prebuild": "npm run clean",
     "build": "npm run tsc",
     "coverage": "npm run build && NODE_ENV=test; istanbul cover --print none -x 'dist/js/spec/**/*.js' --dir dist/coverage/ _mocha -- --opts test/mocha.opts",
