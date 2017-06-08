@@ -1,4 +1,4 @@
-import * as util from "./github/util"
+import * as util from "./github/projects"
 
 require('dotenv').config();
 

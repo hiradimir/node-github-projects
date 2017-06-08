@@ -5,9 +5,9 @@ import * as _ from "lodash"
 
 describe("util", () => {
 
-  describe("GithubUtil", ()=>{
+  describe("ProjectUtils", ()=>{
     describe("searchCard", ()=>{
-      const githubUtil = new util.GithubUtil("hiradimir/node-github-projects");
+      const githubUtil = new util.ProjectUtils("hiradimir/node-github-projects");
       const columnCards = [
         {
           column: { name: "ToDo", id: 1 },

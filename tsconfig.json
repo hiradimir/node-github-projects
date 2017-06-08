@@ -6,7 +6,7 @@
     "noImplicitAny": true,
     "removeComments": true,
     "declaration":true,
-    "outDir": "./dist/",
+    "outDir": "./dist/js/",
     "rootDir": "./src/",
     "pretty": true
   },

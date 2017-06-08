@@ -2,13 +2,15 @@
   "name": "node-github-projects",
   "version": "0.0.0",
   "private": true,
-  "main": "dist/main/index.js",
-  "typings": "dist/main/index.d.ts",
+  "main": "dist/js/main/index.js",
+  "typings": "dist/js/main/index.d.ts",
   "scripts": {
     "start": "node ./bin/www",
     "tsc": "tsc",
-    "test": "NODE_ENV=test; mocha",
-    "ncu": "ncu"
+    "test": "NODE_ENV=test; mocha --opts src/spec/mocha.opts",
+    "ncu": "ncu",
+    "coverage": "tsc && NODE_ENV=test; istanbul cover --dir dist/coverage/ _mocha -- --opts test/mocha.opts",
+    "postcoverage": "remap-istanbul -e dist/js/spec/ -i dist/coverage/coverage.json -o dist/coverage/ts/html-report -t html && remap-istanbul -e dist/js/spec/ -i dist/coverage/coverage.json -o dist/coverage/ts/cobertura.xml -t cobertura"
   },
   "directories": {
     "test": "src/spec"
@@ -27,9 +29,11 @@
     "@types/node": "^7.0.23",
     "@types/power-assert": "^1.4.29",
     "espower-typescript": "^8.0.0",
+    "istanbul": "^0.4.5",
     "mocha": "^3.4.2",
     "npm-check-updates": "^2.11.2",
     "power-assert": "^1.4.2",
+    "remap-istanbul": "^0.9.5",
     "typescript": "^2.3.4",
     "typescript-simple": "https://github.com/hiradimir/typescript-simple.git#dummy-publishing"
   }

@@ -2,7 +2,7 @@ import * as Bluebird from "bluebird";
 import * as GithubAPI from "github";
 import * as _ from "lodash";
 
-export class GithubUtil {
+export class ProjectUtils {
   github: GithubAPI;
   owner: string;
   repo: string;
