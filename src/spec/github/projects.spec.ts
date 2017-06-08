@@ -6,8 +6,9 @@ import * as _ from "lodash"
 describe("util", () => {
 
   describe("ProjectUtils", ()=>{
+    const githubUtil = new util.ProjectUtils(process.env.GITHUB_REPOS || "hiradimir/node-github-projects");
+
     describe("searchCard", ()=>{
-      const githubUtil = new util.ProjectUtils("hiradimir/node-github-projects");
       const columnCards = [
         {
           column: { name: "ToDo", id: 1 },
@@ -68,6 +69,35 @@ describe("util", () => {
         assert(_.isUndefined(columnCard));
       })
     })
+
+    const describe_with_github: Mocha.IContextDefinition = "true" === process.env.ALLOW_UT_ACCESS_GITHUB ? describe : xdescribe;
+
+    describe_with_github("with github real response", ()=>{
+      it("getProjectByNumber", (done)=>{
+        githubUtil.getProjectByNumber(1)
+          .then((project: github.api.Project) => {
+            assert(project.id !== 0);
+            done();
+          })
+          .catch(done)
+
+      });
+
+      it("moveTargetIssueToColumn to todo", (done)=>{
+        githubUtil.moveTargetIssueToColumn(1, "1", "todo")
+          .finally(done)
+      });
+      it("moveTargetIssueToColumn to done", (done)=>{
+        githubUtil.moveTargetIssueToColumn(1, "1", "done")
+          .finally(done)
+      });
+      it("moveTargetIssueToColumn to inprogress", (done)=>{
+        githubUtil.moveTargetIssueToColumn(1, "1", "inprogress")
+          .finally(done)
+      })
+
+    })
+
   })
 
 })
