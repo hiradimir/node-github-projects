@@ -1,0 +1,12 @@
+node_modules/
+.idea/
+.ash_history
+.npm
+*.log
+.env
+coverage/
+.DS_Store
+app/
+
+*.iml
+dist/
