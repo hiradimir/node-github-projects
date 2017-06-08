@@ -10,3 +10,5 @@ app/
 
 *.iml
 dist/
+
+.nyc_output

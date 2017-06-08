@@ -2,7 +2,7 @@
   "name": "node-github-projects",
   "version": "0.0.3",
   "private": false,
-  "license" : "MIT",
+  "license": "MIT",
   "repository": "https://github.com/hiradimir/node-github-projects",
   "main": "dist/js/main/index.js",
   "typings": "dist/js/main/index.d.ts",
@@ -16,11 +16,32 @@
     "prepublish": "npm run build && npm test",
     "prebuild": "npm run clean",
     "build": "npm run tsc",
-    "coverage": "npm run build && NODE_ENV=test; istanbul cover --print none -x 'dist/js/spec/**/*.js' --dir dist/coverage/ _mocha -- --opts test/mocha.opts",
-    "postcoverage": "remap-istanbul -i dist/coverage/coverage.json -o dist/coverage/ts/html-report -t html && remap-istanbul -i dist/coverage/coverage.json -t text -o dist/coverage/ts/coverage.text; cat dist/coverage/ts/coverage.text && remap-istanbul -i dist/coverage/coverage.json -o dist/coverage/ts/cobertura.xml -t cobertura"
+    "coverage": "NODE_ENV=test; nyc mocha --opts src/spec/nyc-mocha.opts"
   },
   "directories": {
     "test": "src/spec"
+  },
+  "nyc": {
+    "include": [
+      "src/**/*.ts"
+    ],
+    "exclude": [
+      "src/spec/**/*.ts"
+    ],
+    "extension": [
+      ".ts"
+    ],
+    "require": [
+      "ts-node/register"
+    ],
+    "reporter": [
+      "text",
+      "html",
+      "cobertura"
+    ],
+    "report-dir": "dist/report",
+    "sourceMap": true,
+    "instrument": true
   },
   "dependencies": {
     "bluebird": "^3.5.0",
@@ -39,9 +60,12 @@
     "istanbul": "^0.4.5",
     "mocha": "^3.4.2",
     "npm-check-updates": "^2.11.2",
+    "nyc": "^11.0.2",
     "power-assert": "^1.4.2",
     "remap-istanbul": "^0.9.5",
     "rimraf": "^2.6.1",
+    "source-map-support": "^0.4.15",
+    "ts-node": "^3.0.6",
     "typescript": "^2.3.4",
     "typescript-simple": "https://github.com/hiradimir/typescript-simple.git#dummy-publishing"
   }
