@@ -59,6 +59,7 @@
     "espower-typescript": "^8.0.0",
     "istanbul": "^0.4.5",
     "mocha": "^3.4.2",
+    "mocha-junit-reporter": "^1.13.0",
     "npm-check-updates": "^2.11.2",
     "nyc": "^11.0.2",
     "power-assert": "^1.4.2",

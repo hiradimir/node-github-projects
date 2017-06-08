@@ -1,5 +1,6 @@
 -t 10s
---reporter progress
+--reporter mocha-junit-reporter
+--reporter-options mochaFile=./dist/report/mocha-junit.xml
 --compilers ts-node/register
 --require source-map-support/register
 --full-trace

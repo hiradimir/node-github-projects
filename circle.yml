@@ -1,0 +1,25 @@
+machine:
+  node:
+    version: 7.5.0
+  post:
+    - npm install -g npm@4.1.2
+
+dependencies:
+  override:
+    - npm install
+  cache_directories:
+    - "node_modules"
+
+test:
+  override:
+    - npm run coverage
+  post:
+    - bash <(curl -s https://codecov.io/bash)
+    - cp -rp dist/report/mocha-junit.xml $CIRCLE_TEST_REPORTS/junit/
+
+general:
+  artifacts:
+    - "dist/"
+  branches:
+    ignore:
+      - master
