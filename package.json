@@ -54,7 +54,7 @@
     "@types/github": "7.1.0",
     "@types/lodash": "^4.14.64",
     "@types/mocha": "^2.2.41",
-    "@types/node": "^8.0.0",
+    "@types/node": "^9.3.0",
     "@types/power-assert": "^1.4.29",
     "espower-typescript": "^8.0.0",
     "istanbul": "^0.4.5",
