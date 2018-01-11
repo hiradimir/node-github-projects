@@ -63,7 +63,7 @@
     "npm-check-updates": "^2.11.2",
     "nyc": "^11.0.2",
     "power-assert": "^1.4.2",
-    "remap-istanbul": "^0.9.5",
+    "remap-istanbul": "^0.10.0",
     "rimraf": "^2.6.1",
     "source-map-support": "^0.4.15",
     "ts-node": "^3.0.6",
