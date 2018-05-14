@@ -1,5 +1,5 @@
 import * as Bluebird from "bluebird";
-import * as GithubAPI from "github";
+import * as GithubAPI from "@octokit/rest";
 import * as _ from "lodash";
 
 export class ProjectUtils {
@@ -13,10 +13,7 @@ export class ProjectUtils {
     this.owner = repos[0];
     this.repo = repos[1];
 
-    this.github = new GithubAPI({
-      debug: "true" === process.env.NODE_DEBUG,
-      Promise: require('bluebird')
-    });
+    this.github = new GithubAPI();
     this.github.authenticate({
       type: "oauth",
       token: accessToken
@@ -50,7 +47,7 @@ export class ProjectUtils {
   collectProjectCardsAndColumn(projectNo: number) {
     return this.getProjectByNumber(projectNo)
       .then((project: any) => {
-        return this.github.projects.getProjectColumns({
+        return this.github.projects.getProjectColumns(<any>{ //FIXME: any
           project_id: project.id
         })
       })
@@ -102,7 +99,7 @@ export class ProjectUtils {
             resolve(`Issue ${issueNo} is alread exist in ${destColumn.column.name}`);
             return;
           }
-          this.github.projects.moveProjectCard({
+          this.github.projects.moveProjectCard(<any>{//FIXME: any
             id: srcColumnCard.card.id,
             position: "bottom",
             column_id: destColumn.column.id

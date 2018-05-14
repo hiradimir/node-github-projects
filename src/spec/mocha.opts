@@ -1,3 +1,7 @@
 -t 10s
 --reporter progress
---compilers ts:espower-typescript/guess src/**/*.ts
+--compilers ts-node/register
+--require source-map-support/register
+--full-trace
+--bail
+src/**/*.spec.ts
