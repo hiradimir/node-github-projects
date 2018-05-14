@@ -8,7 +8,6 @@
   "typings": "dist/js/main/index.d.ts",
   "scripts": {
     "clean": "rimraf dist/",
-    "start": "node ./bin/www",
     "tsc": "tsc",
     "test": "NODE_ENV=test; mocha --opts src/spec/mocha.opts",
     "test-debug": "NODE_ENV=test; mocha --inspect --debug-brk --opts src/spec/mocha.opts",
@@ -44,14 +43,13 @@
     "instrument": true
   },
   "dependencies": {
+    "@octokit/rest": "^15.4.0",
     "bluebird": "^3.5.0",
     "dotenv": "^4.0.0",
-    "github": "^10.0.0",
     "lodash": "^4.17.4"
   },
   "devDependencies": {
     "@types/bluebird": "^3.5.5",
-    "@types/github": "7.1.0",
     "@types/lodash": "^4.14.64",
     "@types/mocha": "^2.2.41",
     "@types/node": "^8.0.0",
@@ -67,7 +65,6 @@
     "rimraf": "^2.6.1",
     "source-map-support": "^0.4.15",
     "ts-node": "^3.0.6",
-    "typescript": "2.4.0",
-    "typescript-simple": "https://github.com/hiradimir/typescript-simple.git#dummy-publishing"
+    "typescript": "^2.3.4"
   }
 }
