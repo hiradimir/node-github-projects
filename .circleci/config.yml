@@ -20,7 +20,9 @@ jobs:
           name: post codecov
           command: |
             bash <(curl -s https://codecov.io/bash)
-            cp -rp dist/report/mocha-junit.xml $CIRCLE_TEST_REPORTS/
+
+      - store_test_results:
+          path: dist/report/
 
       - store_artifacts:
           path: dist/
