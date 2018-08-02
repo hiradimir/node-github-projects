@@ -12,3 +12,5 @@ app/
 dist/
 
 .nyc_output
+
+ts-node-*

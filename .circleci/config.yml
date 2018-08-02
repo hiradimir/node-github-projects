@@ -1,0 +1,29 @@
+version: 2
+jobs:
+  assets-build:
+    docker:
+      - image: circleci/node:9.2
+    working_directory: ~/project
+    steps:
+      - checkout
+      - restore_cache:
+          key: circleci-node-assets-{{ checksum "package.json" }}
+      - run: npm install
+      - save_cache:
+          key: circleci-node-assets-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+
+      - run: npm run coverage
+
+      - run:
+          name: ant one build
+          command: |
+      - run:
+          name: post codecov
+          command: |
+            bash <(curl -s https://codecov.io/bash)
+            cp -rp dist/report/mocha-junit.xml $CIRCLE_TEST_REPORTS/
+
+      - store_artifacts:
+          path: dist/
