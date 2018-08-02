@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  assets-build:
+  build:
     docker:
       - image: circleci/node:9.2
     working_directory: ~/project
@@ -27,3 +27,9 @@ jobs:
 
       - store_artifacts:
           path: dist/
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
