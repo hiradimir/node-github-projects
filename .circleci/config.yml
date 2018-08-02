@@ -8,13 +8,13 @@ jobs:
       - checkout
       - restore_cache:
           key: circleci-node-assets-{{ checksum "package.json" }}
-      - run: npm install
+      - run: yarn install
       - save_cache:
           key: circleci-node-assets-{{ checksum "package.json" }}
           paths:
             - node_modules
 
-      - run: npm run coverage
+      - run: yarn coverage
 
       - run:
           name: post codecov
