@@ -1,0 +1,10 @@
+version: '2'
+
+services:
+
+  env:
+    image: node:alpine
+    env_file: .env
+    working_dir: /home/user/app/
+    volumes:
+      - .:/home/user/app/

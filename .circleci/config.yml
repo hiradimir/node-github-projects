@@ -1,0 +1,34 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:9.2
+    working_directory: ~/project
+    steps:
+      - checkout
+      - restore_cache:
+          key: circleci-node-assets-{{ checksum "package.json" }}
+      - run: yarn install
+      - save_cache:
+          key: circleci-node-assets-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+
+      - run: yarn coverage
+
+      - run:
+          name: post codecov
+          command: |
+            bash <(curl -s https://codecov.io/bash)
+
+      - store_test_results:
+          path: dist/report/
+
+      - store_artifacts:
+          path: dist/
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
