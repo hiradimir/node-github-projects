@@ -7,10 +7,10 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: circleci-node-assets-{{ checksum "package.json" }}
+          key: circleci-node-assets-{{ checksum "package.json" }}-v1
       - run: yarn install
       - save_cache:
-          key: circleci-node-assets-{{ checksum "package.json" }}
+          key: circleci-node-assets-{{ checksum "package.json" }}-v1
           paths:
             - node_modules
 

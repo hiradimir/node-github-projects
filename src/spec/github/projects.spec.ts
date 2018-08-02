@@ -3,6 +3,7 @@ import * as assert from "power-assert"
 import * as util from "../../main/index"
 import * as _ from "lodash"
 import Bluebird = require("bluebird");
+import {github} from "../../main/github/github";
 
 describe("util", () => {
 

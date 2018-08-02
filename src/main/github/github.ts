@@ -1,6 +1,6 @@
-declare namespace github.api {
+export namespace github.api {
 
-  interface User {
+  export interface User {
     login: string;
     id: number;
     avatar_url: string;
@@ -20,7 +20,7 @@ declare namespace github.api {
     site_admin: boolean;
   }
 
-  interface Project {
+  export interface Project {
     owner_url: string;
     url: string;
     html_url: string;
@@ -35,7 +35,7 @@ declare namespace github.api {
     updated_at: Date;
   }
 
-  interface Column {
+  export interface Column {
     url: string;
     project_url: string;
     cards_url: string;
@@ -45,7 +45,7 @@ declare namespace github.api {
     updated_at: Date;
   }
 
-  interface Card {
+  export interface Card {
     url: string;
     column_url: string;
     id: number;
