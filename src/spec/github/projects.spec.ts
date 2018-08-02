@@ -2,6 +2,7 @@ import * as assert from "power-assert"
 
 import * as util from "../../main/index"
 import * as _ from "lodash"
+import Bluebird = require("bluebird");
 
 describe("util", () => {
 
@@ -80,7 +81,6 @@ describe("util", () => {
             done();
           })
           .catch(done)
-
       });
 
       it("moveTargetIssueToColumn to todo", (done)=>{
@@ -94,8 +94,20 @@ describe("util", () => {
       it("moveTargetIssueToColumn to inprogress", (done)=>{
         githubUtil.moveTargetIssueToColumn(1, "1", "inprogress")
           .finally(done)
-      })
+      });
 
+      it("moveTargetIssueToColumn to todo", (done)=>{
+        githubUtil.moveTargetIssueToColumnUnknownProject({ issueNo: "1", columnName: "todo" })
+        .finally(done)
+      });
+      it("moveTargetIssueToColumn to done", (done)=>{
+        githubUtil.moveTargetIssueToColumnUnknownProject({ issueNo: "1", columnName: "done" })
+        .finally(done)
+      });
+      it("moveTargetIssueToColumn to inprogress", (done)=>{
+        githubUtil.moveTargetIssueToColumnUnknownProject({ issueNo: "1", columnName: "inprogress" })
+        .finally(done)
+      })
     })
 
   })
