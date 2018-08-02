@@ -17,9 +17,6 @@ jobs:
       - run: npm run coverage
 
       - run:
-          name: ant one build
-          command: |
-      - run:
           name: post codecov
           command: |
             bash <(curl -s https://codecov.io/bash)
