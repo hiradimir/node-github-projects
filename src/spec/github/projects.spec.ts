@@ -10,7 +10,7 @@ describe("util", () => {
   describe("ProjectUtils", ()=>{
     const githubUtil = new util.ProjectUtils(process.env.GITHUB_REPOS || "hiradimir/node-github-projects");
 
-    xdescribe("searchCard", ()=>{
+    describe("searchCard", ()=>{
       const columnCards = [
         {
           column: { name: "ToDo", id: 1 },
@@ -84,7 +84,7 @@ describe("util", () => {
           .catch(done)
       });
 
-      xdescribe("moveTargetIssueToColumn", ()=>{
+      describe("moveTargetIssueToColumn", ()=>{
         it("move to todo", (done) => {
           githubUtil.moveTargetIssueToColumn(1, "1", "todo").finally(done)
         });
