@@ -45,7 +45,6 @@ jobs:
       - run: npx semantic-release
 
 
-
 workflows:
   version: 2
   build_and_test:
@@ -57,4 +56,4 @@ workflows:
           filters:
             branches:
               only:
-                - release
+                - master
