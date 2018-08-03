@@ -3,6 +3,7 @@ import * as assert from "power-assert"
 import * as util from "../../main/index"
 import * as _ from "lodash"
 import Bluebird = require("bluebird");
+import {github} from "../../main/github/github";
 
 describe("util", () => {
 
@@ -71,7 +72,7 @@ describe("util", () => {
       })
     })
 
-    const describe_with_github: Mocha.IContextDefinition = "true" === process.env.ALLOW_UT_ACCESS_GITHUB ? describe : xdescribe;
+    const describe_with_github: Mocha.SuiteFunction | Mocha.PendingSuiteFunction = "true" === process.env.ALLOW_UT_ACCESS_GITHUB ? describe : xdescribe;
 
     describe_with_github("with github real response", ()=>{
       it("getProjectByNumber", (done)=>{

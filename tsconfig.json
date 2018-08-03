@@ -9,8 +9,5 @@
     "outDir": "./dist/js/",
     "rootDir": "./src/",
     "pretty": true
-  },
-  "include": [
-    "./src/**/*.ts"
-  ]
+  }
 }
