@@ -10,7 +10,7 @@ describe("util", () => {
   describe("ProjectUtils", ()=>{
     const githubUtil = new util.ProjectUtils(process.env.GITHUB_REPOS || "hiradimir/node-github-projects");
 
-    describe("searchCard", ()=>{
+    xdescribe("searchCard", ()=>{
       const columnCards = [
         {
           column: { name: "ToDo", id: 1 },
@@ -48,26 +48,26 @@ describe("util", () => {
       ];
 
       it("can find first row first card", () => {
-        let columnCard = githubUtil.searchCard(columnCards, "11");
+        let columnCard = githubUtil.searchCard(columnCards, "11")[0];
         assert(columnCard.card.id === 110);
         assert(columnCard.card.content_url === "https://api.github.com/repos/hiradimir/node-github-projects/issues/11")
       })
       it("can find first row second card", () => {
-        let columnCard = githubUtil.searchCard(columnCards, "12");
+        let columnCard = githubUtil.searchCard(columnCards, "12")[0];
         assert(columnCard.card.id === 120);
         assert(columnCard.card.content_url === "https://api.github.com/repos/hiradimir/node-github-projects/issues/12")
       })
       it("can find second row first card", () => {
-        let columnCard = githubUtil.searchCard(columnCards, "21");
+        let columnCard = githubUtil.searchCard(columnCards, "21")[0];
         assert(columnCard.card.id === 210);
         assert(columnCard.card.content_url === "https://api.github.com/repos/hiradimir/node-github-projects/issues/21")
       })
       it("can not find second row note", () => {
-        let columnCard = githubUtil.searchCard(columnCards, "25");
+        let columnCard = githubUtil.searchCard(columnCards, "25")[0];
         assert(_.isUndefined(columnCard));
       })
       it("can not find not exists card", () => {
-        let columnCard = githubUtil.searchCard(columnCards, "31");
+        let columnCard = githubUtil.searchCard(columnCards, "31")[0];
         assert(_.isUndefined(columnCard));
       })
     })
@@ -84,31 +84,33 @@ describe("util", () => {
           .catch(done)
       });
 
-      it("moveTargetIssueToColumn to todo", (done)=>{
-        githubUtil.moveTargetIssueToColumn(1, "1", "todo")
-          .finally(done)
-      });
-      it("moveTargetIssueToColumn to done", (done)=>{
-        githubUtil.moveTargetIssueToColumn(1, "1", "done")
-          .finally(done)
-      });
-      it("moveTargetIssueToColumn to inprogress", (done)=>{
-        githubUtil.moveTargetIssueToColumn(1, "1", "inprogress")
-          .finally(done)
+      xdescribe("moveTargetIssueToColumn", ()=>{
+        it("move to todo", (done) => {
+          githubUtil.moveTargetIssueToColumn(1, "1", "todo").finally(done)
+        });
+        it("move to done", (done) => {
+          githubUtil.moveTargetIssueToColumn(1, "1", "done").finally(done)
+        });
+        it("move to inprogress", (done) => {
+          githubUtil.moveTargetIssueToColumn(1, "1", "inprogress").finally(done)
+        });
+
       });
 
-      it("moveTargetIssueToColumn to todo", (done)=>{
-        githubUtil.moveTargetIssueToColumnUnknownProject({ issueNo: "1", columnName: "todo" })
-        .finally(done)
+      describe("moveTargetIssueToColumnUnknownProject", () => {
+        ["1", "43"].forEach((issueNo)=>{
+          it("move to todo", (done) => {
+            githubUtil.moveTargetIssueToColumnUnknownProject({ issueNo: issueNo, columnName: "todo" }).finally(done)
+          });
+          it("move to done", (done) => {
+            githubUtil.moveTargetIssueToColumnUnknownProject({ issueNo: issueNo, columnName: "done" }).finally(done)
+          });
+          it("move to inprogress", (done) => {
+            githubUtil.moveTargetIssueToColumnUnknownProject({ issueNo: issueNo, columnName: "inprogress" }).finally(done)
+          })
+        });
       });
-      it("moveTargetIssueToColumn to done", (done)=>{
-        githubUtil.moveTargetIssueToColumnUnknownProject({ issueNo: "1", columnName: "done" })
-        .finally(done)
-      });
-      it("moveTargetIssueToColumn to inprogress", (done)=>{
-        githubUtil.moveTargetIssueToColumnUnknownProject({ issueNo: "1", columnName: "inprogress" })
-        .finally(done)
-      })
+
     })
 
   })
