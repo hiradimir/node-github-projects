@@ -11,7 +11,7 @@ describe("util", () => {
     const githubUtil = new util.ProjectUtils(process.env.GITHUB_REPOS || "hiradimir/node-github-projects");
 
     describe("searchCard", ()=>{
-      const columnCards = [
+      const columnCards: util.ColumnCards[] = <any>[
         {
           column: { name: "ToDo", id: 1 },
           cards: [
