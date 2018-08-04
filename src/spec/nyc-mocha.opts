@@ -1,7 +1,7 @@
 -t 10s
 --reporter mocha-junit-reporter
 --reporter-options mochaFile=./dist/report/mocha-junit.xml
---compilers ts-node/register
+--require ts-node/register
 --require source-map-support/register
 --full-trace
 --bail
