@@ -1,7 +1,7 @@
 import * as Bluebird from "bluebird";
 import * as GithubAPI from "@octokit/rest";
 import * as _ from "lodash";
-
+import {github} from "../github/github"
 
 const GIT_TOKENS: any = {
   GITHUB_TOKEN: undefined,
@@ -10,6 +10,10 @@ const GIT_TOKENS: any = {
   GH_TOKEN: undefined
 };
 
+export type ColumnCards = {
+  column: github.api.Column,
+  cards: github.api.Card[]
+}
 
 export class ProjectUtils {
   _github: GithubAPI;
@@ -41,51 +45,57 @@ export class ProjectUtils {
     return this._github;
   }
 
-  getProjectList() {
+  getProjectList(): Promise<{ data: github.api.Project[] }> {
     return this.github.projects.getRepoProjects({
       owner: this.owner,
       repo: this.repo
     })
   }
 
-  getProjectByNumber(projectNo?: number) {
-    return new Bluebird((resolve, reject) => {
+  getProjectByNumber(projectNo?: number): Bluebird<github.api.Project[]> {
+    return new Bluebird<github.api.Project[]>((resolve, reject) => {
       this.getProjectList().then((projectsResponse) => {
-        let targetProject = projectsResponse.data.filter((project: any) => {
+        let targetProjects = projectsResponse.data.filter((project: any) => {
           if (projectNo) {
             return project.number === projectNo;
           } else {
             return true
           }
         });
-        if (_.isEmpty(targetProject)) {
+        if (_.isEmpty(targetProjects)) {
           reject(`project:${projectNo} is not found`);
         }
-        resolve(targetProject);
-      }).catch((e) => {
+        resolve(targetProjects);
+      }).catch((e:any) => {
         reject(["catch this.getProjectList error", e]);
       })
     })
   }
 
+  getProjectColumns(project: github.api.Project): Promise<{ data: github.api.Column[] }> {
+    return this.github.projects.getProjectColumns(<any>{ //FIXME: any
+      project_id: project.id
+    })
+  }
+
   collectProjectCardsAndColumn(projectNo?: number) {
-    return this.getProjectByNumber(projectNo).then((projects: any[]) => {
+    return this.getProjectByNumber(projectNo).then((projects) => {
       return Bluebird.all(projects.map((project) => {
-        return this.github.projects.getProjectColumns(<any>{ //FIXME: any
-          project_id: project.id
-        })
+        return this.getProjectColumns(project);
       }));
 
-    }).then((columnsRsponses: any[]) => {
-      let columnCardPromises: Array<Bluebird<any>> = [];
+    }).then((columnsRsponses: { data: github.api.Column[] }[]) => {
+      const columnCardPromises: Array<Bluebird<ColumnCards>> = [];
       columnsRsponses.forEach((columnsRsponse) => {
         columnsRsponse.data.forEach((column: any) => {
-          columnCardPromises.push(new Bluebird((resolve, reject) => {
+          columnCardPromises.push(new Bluebird<ColumnCards>((resolve, reject) => {
             this.github.projects.getProjectCards({
               column_id: column.id
             }).then((res: any) => {
               resolve({ column: column, cards: res.data });
-            })
+            }).catch((e) => {
+              reject(e)
+            });
           }))
         });
       })
@@ -94,7 +104,7 @@ export class ProjectUtils {
     });
   }
 
-  searchCard(columnCards: Array<{ column: { name: string, id: number }, cards: Array<{ id: any, content_url: string, note?: string }> }>, issueNo: string): { column: any, card: { id: any, content_url: string } }[] {
+  searchCard(columnCards: ColumnCards[], issueNo: string) {
 
     return _.chain(columnCards).flatMap((v) => _.map(v.cards, (c) => {
         return { column: v.column, card: c }
@@ -122,7 +132,7 @@ export class ProjectUtils {
         }
         const project_srcColumn: {[index:string]: typeof srcColumnCards[0]} = {};
 
-        srcColumnCards.map((srcColumnCard)=>{
+        srcColumnCards.forEach((srcColumnCard)=>{
           project_srcColumn[srcColumnCard.column.project_url] = srcColumnCard;
         });
 
