@@ -11,7 +11,7 @@ describe("util", () => {
     const githubUtil = new util.ProjectUtils(process.env.GITHUB_REPOS || "hiradimir/node-github-projects");
 
     describe("searchCard", ()=>{
-      const columnCards = [
+      const columnCards: util.ColumnCards[] = <any>[
         {
           column: { name: "ToDo", id: 1 },
           cards: [
@@ -74,14 +74,13 @@ describe("util", () => {
 
     const describe_with_github: Mocha.SuiteFunction | Mocha.PendingSuiteFunction = "true" === process.env.ALLOW_UT_ACCESS_GITHUB ? describe : xdescribe;
 
-    describe_with_github("with github real response", ()=>{
-      it("getProjectByNumber", (done)=>{
-        githubUtil.getProjectByNumber(1)
-          .then((project: github.api.Project) => {
-            assert(project.id !== 0);
-            done();
-          })
-          .catch(done)
+    describe_with_github("with github real response", () => {
+      it("getProjectByNumber", (done) => {
+        githubUtil.getProjectByNumber(1).then((projects: github.api.Project[]) => {
+          assert(_.size(projects) > 0);
+          assert(!_.isUndefined(projects[0].id));
+          done();
+        }).catch(done)
       });
 
       describe("moveTargetIssueToColumn", ()=>{
