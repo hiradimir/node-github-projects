@@ -90,7 +90,8 @@ export class ProjectUtils {
         columnsRsponse.data.forEach((column: any) => {
           columnCardPromises.push(new Bluebird<ColumnCards>((resolve, reject) => {
             this.github.projects.getProjectCards({
-              column_id: column.id
+              column_id: column.id,
+              per_page: 100
             }).then((res: any) => {
               resolve({ column: column, cards: res.data });
             }).catch((e) => {
