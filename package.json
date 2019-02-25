@@ -54,7 +54,7 @@
     "@types/power-assert": "^1.5.0",
     "espower-typescript": "^9.0.0",
     "istanbul": "^0.4.5",
-    "mocha": "^5.2.0",
+    "mocha": "^6.0.2",
     "mocha-junit-reporter": "^1.17.0",
     "npm-check-updates": "^2.14.2",
     "nyc": "^12.0.2",
