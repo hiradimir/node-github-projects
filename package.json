@@ -56,7 +56,7 @@
     "istanbul": "^0.4.5",
     "mocha": "^5.2.0",
     "mocha-junit-reporter": "^1.17.0",
-    "npm-check-updates": "^2.14.2",
+    "npm-check-updates": "^3.1.16",
     "nyc": "^12.0.2",
     "power-assert": "^1.6.0",
     "remap-istanbul": "^0.11.1",
