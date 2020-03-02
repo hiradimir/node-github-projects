@@ -47,7 +47,7 @@
     "lodash": "^4.17.10"
   },
   "devDependencies": {
-    "@types/bluebird": "^3.5.23",
+    "@types/bluebird": "^3.5.30",
     "@types/lodash": "^4.14.116",
     "@types/mocha": "^5.2.5",
     "@types/node": "^10.5.6",
